@@ -1,0 +1,5 @@
+{
+  "name": "gather",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"]
+}
