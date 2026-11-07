@@ -2,7 +2,7 @@ import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
-import { sharedCheck } from '@gather/shared'
+import { orlandoTrip } from './data/orlando'
 import './App.css'
 
 function App() {
@@ -17,8 +17,17 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
-          <p>{sharedCheck.message}</p>
+          <h1>{orlandoTrip.name}</h1>
+          {orlandoTrip.days.map((day) => (
+            <section key={day.id}>
+              <h2>{day.date} · {day.city}</h2>
+              <ul role='list' style={{ listStyle: 'none' }}>
+                {day.activities.map((activity) => (
+                  <li key={activity.id}>{activity.title}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
