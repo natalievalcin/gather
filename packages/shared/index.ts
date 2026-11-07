@@ -1,8 +1,13 @@
-export type ActivityKind =
-  | 'sight'
-  | 'meal'
-  | 'stay'
-  | 'transport'
+import { z } from 'zod'
+
+export const ActivityKindSchema = z.enum([
+  'sight',
+  'meal',
+  'stay',
+  'transport'
+])
+
+export type ActivityKind = z.infer<typeof ActivityKindSchema>
 
 export type Activity = {
   id: string
