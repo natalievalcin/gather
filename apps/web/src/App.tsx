@@ -17,11 +17,22 @@ function App() {
     }))
   }
 
+  function deleteActivity(dayId: string,activityId: string) {
+    setTrip((prev) => ({
+      ...prev,
+      days: prev.days.map((day): Day =>
+        day.id === dayId
+        ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId)}
+        : day
+      )
+    }))
+  }
+
   return (
     <main>
       <h1>{trip.name}</h1>
       {trip.days.map((day) => (
-        <DaySection key={day.id} day={day} onAddActivity={addActivity} />
+        <DaySection key={day.id} day={day} onAddActivity={addActivity} onDeleteActivity={deleteActivity}/>
       ))}
     </main>
   )
