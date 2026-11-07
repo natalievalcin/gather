@@ -1,5 +1,6 @@
 import type { Day } from '@gather/shared'
 import { ActivityItem } from './ActivityItem'
+import { AddActivityForm } from './AddActivityForm'
 
 type DaySectionProps = {
   day: Day
@@ -14,6 +15,7 @@ export function DaySection({ day }: DaySectionProps) {
           <ActivityItem key={activity.id} activity={activity} />
         ))}
       </ul>
+      <AddActivityForm />
     </section>
   )
 }
