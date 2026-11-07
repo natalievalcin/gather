@@ -17,8 +17,10 @@ const kindLabels: Record<ActivityKind, string> = {
 export function AddActivityForm({ onAdd }: AddActivityFormProps) {
   const titleId = useId()
   const kindId = useId()
+  const timeId = useId()
   const [title, setTitle] = useState('')
   const [kind, setKind] = useState<ActivityKind>(DEFAULT_KIND)
+  const [startTime, setStartTime] = useState('')
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value)
@@ -28,6 +30,10 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
     setKind(ActivityKindSchema.parse(event.target.value))
   }
 
+  function handleTimeChange(event: ChangeEvent<HTMLInputElement>) {
+    setStartTime(event.target.value)
+  }
+
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -35,11 +41,13 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
       id: crypto.randomUUID(),
       title,
       kind,
+      startTime: startTime === '' ? undefined : startTime
     }
     onAdd(newActivity)
 
     setTitle('')
     setKind(DEFAULT_KIND)
+    setStartTime('')
   }
 
   return (
@@ -60,6 +68,13 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
           <option key={option} value={option}>{kindLabels[option]}</option>
         ))}
       </select>
+      <label htmlFor={timeId}>Time (optional)</label>
+      <input
+        id={timeId}
+        type='time'
+        value={startTime}
+        onChange={handleTimeChange}
+      />
       <button
         type='submit'
         disabled={title.trim() === ''}
