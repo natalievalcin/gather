@@ -1,0 +1,25 @@
+{
+  // Shared rules for every TypeScript project in Gather.
+  // Only options that don't depend on where the code runs belong here.
+  // Environment-specific options (lib, types, module, jsx, noEmit, include)
+  // live in each project's own tsconfig.
+  "compilerOptions": {
+    "target": "es2023",
+    "skipLibCheck": true,
+
+    /* Modules */
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+
+    /* Type safety */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "erasableSyntaxOnly": true,
+
+    /* Unused code */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
