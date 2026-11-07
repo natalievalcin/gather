@@ -8,6 +8,7 @@ import { DaySection } from './components/DaySection'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [trip] = useState(orlandoTrip)
 
   return (
     <>
@@ -18,8 +19,8 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>{orlandoTrip.name}</h1>
-          {orlandoTrip.days.map((day) => (
+          <h1>{trip.name}</h1>
+          {trip.days.map((day) => (
             <DaySection key={day.id} day={day} />
           ))}
           <p>
