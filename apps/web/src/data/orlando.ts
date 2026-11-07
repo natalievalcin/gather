@@ -5,6 +5,19 @@ export const orlandoTrip: Trip = {
   name: 'Orlando Christmas Trip',
   days: [
     {
+      id: 'd3',
+      date: '2026-12-23',
+      city: 'Tampa',
+      activities: [
+        {
+          id: 'a3',
+          title: 'Travel to Orlando',
+          kind: 'transport',
+          startTime: '16:00'
+        }
+      ]
+    },
+    {
       id: 'd1',
       date: '2026-12-24',
       city: 'Orlando',
@@ -26,19 +39,6 @@ export const orlandoTrip: Trip = {
           title: 'Dinner',
           kind: 'meal',
           startTime: '18:00'
-        }
-      ]
-    },
-    {
-      id: 'd3',
-      date: '2026-12-23',
-      city: 'Tampa',
-      activities: [
-        {
-          id: 'a2',
-          title: 'Travel to Orlando',
-          kind: 'transport',
-          startTime: '16:00'
         }
       ]
     }
