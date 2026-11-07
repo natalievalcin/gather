@@ -1,12 +1,13 @@
-import type { Day } from '@gather/shared'
+import type { Activity, Day } from '@gather/shared'
 import { ActivityItem } from './ActivityItem'
 import { AddActivityForm } from './AddActivityForm'
 
 type DaySectionProps = {
   day: Day
+  onAddActivity: (dayId: string, activity: Activity) => void
 }
 
-export function DaySection({ day }: DaySectionProps) {
+export function DaySection({ day, onAddActivity }: DaySectionProps) {
   return (
     <section>
       <h2>{day.date} · {day.city}</h2>
@@ -15,7 +16,7 @@ export function DaySection({ day }: DaySectionProps) {
           <ActivityItem key={activity.id} activity={activity} />
         ))}
       </ul>
-      <AddActivityForm />
+      <AddActivityForm onAdd={(activity) => onAddActivity(day.id, activity)} />
     </section>
   )
 }
