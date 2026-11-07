@@ -28,6 +28,19 @@ export const orlandoTrip: Trip = {
           startTime: '18:00'
         }
       ]
+    },
+    {
+      id: 'd3',
+      date: '2026-12-23',
+      city: 'Tampa',
+      activities: [
+        {
+          id: 'a2',
+          title: 'Travel to Orlando',
+          kind: 'transport',
+          startTime: '16:00'
+        }
+      ]
     }
   ]
 }

@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import { orlandoTrip } from './data/orlando'
 import './App.css'
+import { DaySection } from './components/DaySection'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,14 +20,7 @@ function App() {
         <div>
           <h1>{orlandoTrip.name}</h1>
           {orlandoTrip.days.map((day) => (
-            <section key={day.id}>
-              <h2>{day.date} · {day.city}</h2>
-              <ul role='list' style={{ listStyle: 'none' }}>
-                {day.activities.map((activity) => (
-                  <li key={activity.id}>{activity.title}</li>
-                ))}
-              </ul>
-            </section>
+            <DaySection key={day.id} day={day} />
           ))}
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
