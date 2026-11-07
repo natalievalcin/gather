@@ -18,3 +18,8 @@ dist-ssr
 # OS / editor
 .DS_Store
 .idea
+
+# Editor: commit shared project settings, ignore personal ones
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
