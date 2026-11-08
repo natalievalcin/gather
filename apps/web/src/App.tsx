@@ -2,7 +2,7 @@ import { useReducer, useState } from 'react'
 import { orlandoTrip } from './data/orlando'
 import { DaySection } from './components/DaySection'
 import type { Activity } from '@gather/shared'
-import { tripReducer } from './tripReducer'
+import { tripReducer, type MoveDirection } from './tripReducer'
 
 function App() {
   const [trip, dispatch] = useReducer(tripReducer, orlandoTrip)
@@ -19,6 +19,10 @@ function App() {
   function updateActivity(dayId: string, updated: Activity) {
     dispatch({ type: 'activityUpdated', dayId, activity: updated })
     stopEditing()
+  }
+
+  function moveActivity(dayId: string, activityId: string, direction: MoveDirection) {
+    dispatch({ type: 'activityMoved', dayId, activityId, direction })
   }
 
   function startEditing(activityId: string) {
@@ -40,6 +44,7 @@ function App() {
           onAddActivity={addActivity}
           onDeleteActivity={deleteActivity}
           onUpdateActivity={updateActivity}
+          onMoveActivity={moveActivity}
           onStartEditing={startEditing}
           onStopEditing={stopEditing}
         />
