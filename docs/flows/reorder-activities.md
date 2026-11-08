@@ -3,8 +3,8 @@
 > Source of truth is the code. If this doc and the code disagree, verify against the
 > code, confirm intent with the owner, and update whichever is wrong. See docs/README.md.
 
-**Status:** draft (decided, being built in stage 3) · **Last decided:** 2026-11-08
-**Owner(s):** Natalie · **Code:** `apps/web/src/tripReducer.ts`, `apps/web/src/components/DaySection.tsx`, `apps/web/src/components/ActivityItem.tsx`
+**Status:** implemented (stage 3) · **Last decided:** 2026-11-08
+**Owner(s):** Natalie · **Code:** `apps/web/src/tripReducer.ts` (`activityMoved`), `apps/web/src/timeOrder.ts` (`findTimeOrderProblems`), `apps/web/src/components/DaySection.tsx`, `apps/web/src/components/ActivityItem.tsx`
 
 ## Purpose
 
@@ -23,13 +23,13 @@ no longer matches the start times.
 
 ## Edge-case decision table
 
-| Scenario                                                                   | Current behavior | Decided behavior                                                                                                      | Status  | Test |
-| -------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------- | ------- | ---- |
-| Move makes start times go backwards (Fireworks 21:00 above Lunch 12:00)    | not built        | The move happens; the day shows a warning naming both activities                                                      | decided | TODO |
-| Move up on the first activity / down on the last                           | not built        | The button is disabled (the reason is visible); the reducer also returns the trip unchanged if such an action arrives | decided | TODO |
-| Activity without a start time (Magic Kingdom)                              | not built        | Can sit anywhere; never causes a warning                                                                              | decided | TODO |
-| Two activities with the same start time                                    | not built        | Warn: same time counts as a problem                                                                                   | decided | TODO |
-| The warning's cause is fixed (time edited, activity moved back or deleted) | not built        | The warning disappears on the next render, because it is computed, not stored                                         | decided | TODO |
+| Scenario                                                                   | Current behavior                                                                                                                                             | Decided behavior                                                                                                      | Status | Test |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------ | ---- |
+| Move makes start times go backwards (Fireworks 21:00 above Lunch 12:00)    | The swap happens; `findTimeOrderProblems` returns the pair and DaySection lists it in a `role='status'` region                                               | The move happens; the day shows a warning naming both activities                                                      | built  | TODO |
+| Move up on the first activity / down on the last                           | ↑ / ↓ use `disabled={isFirst}` / `disabled={isLast}` (derived from the `.map` index); the reducer returns the day unchanged when the neighbor is `undefined` | The button is disabled (the reason is visible); the reducer also returns the trip unchanged if such an action arrives | built  | TODO |
+| Activity without a start time (Magic Kingdom)                              | Skipped by `if (!activity.startTime) continue`                                                                                                               | Can sit anywhere; never causes a warning                                                                              | built  | TODO |
+| Two activities with the same start time                                    | Compared with `<=`, so equal times are reported                                                                                                              | Warn: same time counts as a problem                                                                                   | built  | TODO |
+| The warning's cause is fixed (time edited, activity moved back or deleted) | `findTimeOrderProblems(day.activities)` runs on every render of DaySection                                                                                   | The warning disappears on the next render, because it is computed, not stored                                         | built  | TODO |
 
 ## Alternatives considered
 
