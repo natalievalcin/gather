@@ -7,7 +7,7 @@ Stage 1: a static Orlando trip with typed data and components. No forms, no savi
 I asked "how do they know what to do first?" There's no magic, it's the same questions every time:
 
 1. What does done look like? (something I can see, not the work)
-2. Work backwards: what does that need? Screen ← components ← data ← types ← deciding what a trip/day/activity *is*. So you start with thinking, not code.
+2. Work backwards: what does that need? Screen ← components ← data ← types ← deciding what a trip/day/activity _is_. So you start with thinking, not code.
 3. What's the riskiest part? Do it first. For us it was importing from `@gather/shared`, so we tested it with a tiny `sharedCheck` before writing real types.
 4. What's the smallest step I can check? One day, one activity, then more.
 5. What can I put off? Costs, packing, position, styling.
@@ -24,7 +24,7 @@ I asked "how do they know what to do first?" There's no magic, it's the same que
 
 **Variable vs object:** I asked "I thought sharedCheck is a variable, why an object?" It's both. The variable is the name, the object is what's stored in it. `sharedCheck.message` reaches inside the object to get the string.
 
-**Importing types:** I didn't need to import `SharedCheck`, because the type comes along with the value. You import a type by name when *you* write it, like in props: `{ day }: { day: Day }`. Use `import type` so it gets erased at runtime.
+**Importing types:** I didn't need to import `SharedCheck`, because the type comes along with the value. You import a type by name when _you_ write it, like in props: `{ day }: { day: Day }`. Use `import type` so it gets erased at runtime.
 
 ## Date vs string
 
@@ -34,7 +34,7 @@ A calendar day is a string: `'2026-12-24'`. No time zone, survives JSON, and it 
 
 ## Wall-clock time
 
-I said dinner at 7 PM "is a moment." Half right. It *happens* at a moment, but what I mean is "7 PM on the clock in Orlando," the same for everyone looking at the plan. So `startTime` is a string like `'19:00'`. You can work out the real moment later from date + time + the city's time zone. Flights are where real moments matter.
+I said dinner at 7 PM "is a moment." Half right. It _happens_ at a moment, but what I mean is "7 PM on the clock in Orlando," the same for everyone looking at the plan. So `startTime` is a string like `'19:00'`. You can work out the real moment later from date + time + the city's time zone. Flights are where real moments matter.
 
 ## Nested vs referenced data
 
@@ -64,7 +64,7 @@ When you use `.map` in JSX, each item needs a `key` so React can tell which item
 
 ## Semantic HTML
 
-Pick the element for what the content *is*, not how it looks. Date + city is one heading (`<h2>`). Activities are a list (`<ul>` / `<li>`), not headings. Screen readers use headings like a table of contents. If you hide bullets with CSS, add `role="list"` or Safari forgets it's a list.
+Pick the element for what the content _is_, not how it looks. Date + city is one heading (`<h2>`). Activities are a list (`<ul>` / `<li>`), not headings. Screen readers use headings like a table of contents. If you hide bullets with CSS, add `role="list"` or Safari forgets it's a list.
 
 ## Components and props
 
@@ -74,7 +74,7 @@ Why `ActivityItem` exists: you draw boxes around the screen and they match the d
 
 ## Refactor
 
-Splitting into components should change *nothing* on the screen. If the page looks exactly the same, the refactor worked.
+Splitting into components should change _nothing_ on the screen. If the page looks exactly the same, the refactor worked.
 
 ## What tripped me up
 

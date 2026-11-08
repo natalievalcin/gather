@@ -10,7 +10,7 @@ Each component instance has its **own** state. I typed in the Dec 23 form and no
 
 ## Data down, events up
 
-Data goes down as props. Changes go up as function props. The child doesn't change the trip, it *tells* App what happened and App changes it.
+Data goes down as props. Changes go up as function props. The child doesn't change the trip, it _tells_ App what happened and App changes it.
 
 How I figured out the wiring: I started in the form, realized the form doesn't have the trip, and went **backwards** up the tree until I found who owns it. Then I asked at each level, "what does this component know that the one above doesn't?" DaySection knows the day, so it adds `day.id` on the way up. I said: "I don't want App to check every day so I will pass the day along."
 
@@ -31,10 +31,10 @@ I only really got this when I ran tiny plain-JS examples (`doorbell(openDoor)`) 
 
 You never edit the trip, you build a new one: spread (`...`), `.map`, `.filter`.
 
-| Want | Method |
-| --- | --- |
-| add one | `[...day.activities, activity]` |
-| remove one | `.filter` (keep everything except it) |
+| Want        | Method                                        |
+| ----------- | --------------------------------------------- |
+| add one     | `[...day.activities, activity]`               |
+| remove one  | `.filter` (keep everything except it)         |
 | replace one | `.map` (same length, same order, one swapped) |
 
 I asked "should it be `find`?" No, `find` gives back **one item**, not the list. I also once used `.filter` on the **days** and deleted the whole day. Map the days, then change that day's activities.
@@ -65,7 +65,7 @@ I asked "should it be `find`?" No, `find` gives back **one item**, not the list.
 
 - Disabled buttons are bad for errors: they don't say what's wrong, and keyboard users can't even Tab to them. Show a message instead.
 - `aria-invalid` says "this field has a problem." `aria-describedby` points at the message so a screen reader reads it.
-- ``aria-label={`Delete ${activity.title}`}`` so "Delete" says *which* one.
+- ``aria-label={`Delete ${activity.title}`}`` so "Delete" says _which_ one.
 
 ## Reusing the form for edit
 
@@ -89,7 +89,7 @@ I said "I only want one open at a time." So the state went up to App as `editing
 
 - Fix the **first** error and re-run. The second is often caused by the first (TS2322 on a prop, then TS7006 `any` on its parameter).
 - 1xxx is syntax. TypeScript stops before checking types, so other errors hide until it's fixed.
-- In the props type but not destructured = **silent**. `tsc` only complains when you *use* the name.
+- In the props type but not destructured = **silent**. `tsc` only complains when you _use_ the name.
 - **Types check shape, not meaning.** `{errors.title && <p>{errors.startTime}</p>}` compiled fine. Both are strings.
 
 ## What tripped me up

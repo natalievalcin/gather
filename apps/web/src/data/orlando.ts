@@ -13,9 +13,9 @@ export const orlandoTrip: Trip = {
           id: 'a3',
           title: 'Travel to Orlando',
           kind: 'transport',
-          startTime: '16:00'
-        }
-      ]
+          startTime: '16:00',
+        },
+      ],
     },
     {
       id: 'd1',
@@ -26,8 +26,8 @@ export const orlandoTrip: Trip = {
           id: 'a1',
           title: 'Magic Kingdom',
           kind: 'sight',
-        }
-      ]
+        },
+      ],
     },
     {
       id: 'd2',
@@ -38,9 +38,9 @@ export const orlandoTrip: Trip = {
           id: 'a2',
           title: 'Dinner',
           kind: 'meal',
-          startTime: '18:00'
-        }
-      ]
-    }
-  ]
+          startTime: '18:00',
+        },
+      ],
+    },
+  ],
 }

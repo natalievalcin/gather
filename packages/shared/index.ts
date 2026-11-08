@@ -1,11 +1,6 @@
 import { z } from 'zod'
 
-export const ActivityKindSchema = z.enum([
-  'sight',
-  'meal',
-  'stay',
-  'transport'
-])
+export const ActivityKindSchema = z.enum(['sight', 'meal', 'stay', 'transport'])
 export type ActivityKind = z.infer<typeof ActivityKindSchema>
 
 export const ActivitySchema = z.object({
@@ -13,7 +8,10 @@ export const ActivitySchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(100, 'Keep it under 100 characters'),
   kind: ActivityKindSchema,
   /** Local wall-clock time at the day's city, 'HH:MM' */
-  startTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Use HH:MM').optional()
+  startTime: z
+    .string()
+    .regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Use HH:MM')
+    .optional(),
 })
 export type Activity = z.infer<typeof ActivitySchema>
 

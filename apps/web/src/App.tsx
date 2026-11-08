@@ -11,10 +11,8 @@ function App() {
     setTrip((prev) => ({
       ...prev,
       days: prev.days.map((day): Day =>
-        day.id === dayId
-        ? { ...day, activities: [...day.activities, activity] }
-        : day
-      )
+        day.id === dayId ? { ...day, activities: [...day.activities, activity] } : day,
+      ),
     }))
   }
 
@@ -23,9 +21,9 @@ function App() {
       ...prev,
       days: prev.days.map((day): Day =>
         day.id === dayId
-          ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId)}
-          : day
-      )
+          ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId) }
+          : day,
+      ),
     }))
   }
 
@@ -34,9 +32,14 @@ function App() {
       ...prev,
       days: prev.days.map((day): Day =>
         day.id === dayId
-          ? { ...day, activities: day.activities.map((activity) => activity.id === updated.id ? updated : activity) }
-          : day
-      )
+          ? {
+              ...day,
+              activities: day.activities.map((activity) =>
+                activity.id === updated.id ? updated : activity,
+              ),
+            }
+          : day,
+      ),
     }))
     stopEditing()
   }

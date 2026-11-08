@@ -1,4 +1,9 @@
-import { type ActivityKind, ActivityKindSchema, NewActivitySchema, type NewActivity } from '@gather/shared'
+import {
+  type ActivityKind,
+  ActivityKindSchema,
+  NewActivitySchema,
+  type NewActivity,
+} from '@gather/shared'
 import { useId, useState, type ChangeEvent, type SubmitEvent } from 'react'
 
 type ActivityFormProps = {
@@ -22,7 +27,12 @@ type FormErrors = {
   startTime?: string
 }
 
-export function ActivityForm({ initialValues, submitLabel, onSubmit, onCancel }: ActivityFormProps) {
+export function ActivityForm({
+  initialValues,
+  submitLabel,
+  onSubmit,
+  onCancel,
+}: ActivityFormProps) {
   const titleId = useId()
   const kindId = useId()
   const timeId = useId()
@@ -85,13 +95,11 @@ export function ActivityForm({ initialValues, submitLabel, onSubmit, onCancel }:
       />
       {errors.title && <p id={titleErrorId}>{errors.title}</p>}
       <label htmlFor={kindId}>Kind</label>
-      <select
-        id={kindId}
-        value={kind}
-        onChange={handleKindChange}
-      >
+      <select id={kindId} value={kind} onChange={handleKindChange}>
         {ActivityKindSchema.options.map((option) => (
-          <option key={option} value={option}>{kindLabels[option]}</option>
+          <option key={option} value={option}>
+            {kindLabels[option]}
+          </option>
         ))}
       </select>
       <label htmlFor={timeId}>Time (optional)</label>
@@ -104,14 +112,11 @@ export function ActivityForm({ initialValues, submitLabel, onSubmit, onCancel }:
         onChange={handleTimeChange}
       />
       {errors.startTime && <p id={timeErrorId}>{errors.startTime}</p>}
-      <button
-        type='submit'
-      >{submitLabel}</button>
+      <button type='submit'>{submitLabel}</button>
       {onCancel && (
-        <button
-          type='button'
-          onClick={onCancel}
-        >Cancel</button>
+        <button type='button' onClick={onCancel}>
+          Cancel
+        </button>
       )}
     </form>
   )

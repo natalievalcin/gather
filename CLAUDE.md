@@ -68,19 +68,19 @@ Run everything from the root: `npm install` once, `npm run dev --workspace=apps/
 
 ## Learning map (build in this order)
 
-| Stage | Feature | Focus |
-| --- | --- | --- |
-| 1 | Static trip and day list (Orlando, Christmas 2026) | strict TS, typing data, components and lists |
-| 2 | Add and edit an activity | Zod, controlled forms, event typing |
-| 3 | Days with ordered activities | discriminated unions, `useReducer`, derived state |
-| 4 | Save to the API | end-to-end types, generics, TanStack Query |
-| 5 | Drag between days with undo | optimistic updates, undo stack, custom hooks |
-| 6 | Paste a booking confirmation with review | parsing unknown input, type guards, multi-step flow |
-| 7 | Costs and totals | branded types, exhaustive switch, memoization, profiling |
-| 7b | Places search | large data, debounced search, indexes, EXPLAIN |
-| 8 | Day / map / budget views with filters in the URL | typed URL params, context vs store |
-| 9 | Packing lists and read-only share link | permissions, Suspense, error boundaries |
-| 10 | Tests and polish | Vitest, RTL, accessibility |
+| Stage | Feature                                            | Focus                                                    |
+| ----- | -------------------------------------------------- | -------------------------------------------------------- |
+| 1     | Static trip and day list (Orlando, Christmas 2026) | strict TS, typing data, components and lists             |
+| 2     | Add and edit an activity                           | Zod, controlled forms, event typing                      |
+| 3     | Days with ordered activities                       | discriminated unions, `useReducer`, derived state        |
+| 4     | Save to the API                                    | end-to-end types, generics, TanStack Query               |
+| 5     | Drag between days with undo                        | optimistic updates, undo stack, custom hooks             |
+| 6     | Paste a booking confirmation with review           | parsing unknown input, type guards, multi-step flow      |
+| 7     | Costs and totals                                   | branded types, exhaustive switch, memoization, profiling |
+| 7b    | Places search                                      | large data, debounced search, indexes, EXPLAIN           |
+| 8     | Day / map / budget views with filters in the URL   | typed URL params, context vs store                       |
+| 9     | Packing lists and read-only share link             | permissions, Suspense, error boundaries                  |
+| 10    | Tests and polish                                   | Vitest, RTL, accessibility                               |
 
 After each stage I write a short "what I learned" note in `docs/notes/`. Remind me if I skip it.
 
