@@ -1,4 +1,4 @@
-import { type ActivityKind, ActivityKindSchema, type Activity } from '@gather/shared'
+import { type ActivityKind, ActivityKindSchema, NewActivitySchema, type Activity } from '@gather/shared'
 import { useId, useState, type ChangeEvent, type SubmitEvent } from 'react'
 
 type AddActivityFormProps = {
@@ -14,13 +14,21 @@ const kindLabels: Record<ActivityKind, string> = {
   transport: 'Transport',
 }
 
+type FormErrors = {
+  title?: string
+  startTime?: string
+}
+
 export function AddActivityForm({ onAdd }: AddActivityFormProps) {
   const titleId = useId()
   const kindId = useId()
   const timeId = useId()
+  const titleErrorId = useId()
+  const timeErrorId = useId()
   const [title, setTitle] = useState('')
   const [kind, setKind] = useState<ActivityKind>(DEFAULT_KIND)
   const [startTime, setStartTime] = useState('')
+  const [errors, setErrors] = useState<FormErrors>({})
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value)
@@ -37,17 +45,29 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const newActivity: Activity = {
-      id: crypto.randomUUID(),
+    const result = NewActivitySchema.safeParse({
       title,
       kind,
-      startTime: startTime === '' ? undefined : startTime
+      startTime: startTime === '' ? undefined : startTime,
+    })
+
+    if (!result.success) {
+      const nextErrors: FormErrors = {}
+      for (const issue of result.error.issues) {
+        const field = issue.path[0]
+        if (field === 'title' || field === 'startTime') {
+          nextErrors[field] = issue.message
+        }
+      }
+      setErrors(nextErrors)
+      return
     }
-    onAdd(newActivity)
+    onAdd({ id: crypto.randomUUID(), ...result.data })
 
     setTitle('')
     setKind(DEFAULT_KIND)
     setStartTime('')
+    setErrors({})
   }
 
   return (
@@ -55,9 +75,12 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
       <label htmlFor={titleId}>Title</label>
       <input
         id={titleId}
+        aria-invalid={errors.title ? true : undefined}
+        aria-describedby={errors.title ? titleErrorId : undefined}
         value={title}
         onChange={handleTitleChange}
       />
+      {errors.title && <p id={titleErrorId}>{errors.title}</p>}
       <label htmlFor={kindId}>Kind</label>
       <select
         id={kindId}
@@ -71,13 +94,15 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
       <label htmlFor={timeId}>Time (optional)</label>
       <input
         id={timeId}
+        aria-invalid={errors.startTime ? true : undefined}
+        aria-describedby={errors.startTime ? timeErrorId : undefined}
         type='time'
         value={startTime}
         onChange={handleTimeChange}
       />
+      {errors.startTime && <p id={timeErrorId}>{errors.startTime}</p>}
       <button
         type='submit'
-        disabled={title.trim() === ''}
       >Add</button>
     </form>
   )

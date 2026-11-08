@@ -6,16 +6,18 @@ export const ActivityKindSchema = z.enum([
   'stay',
   'transport'
 ])
-
 export type ActivityKind = z.infer<typeof ActivityKindSchema>
 
-export type Activity = {
-  id: string
-  title: string
-  kind: ActivityKind
+export const ActivitySchema = z.object({
+  id: z.string(),
+  title: z.string().trim().min(1, 'Title is required').max(100, 'Keep it under 100 characters'),
+  kind: ActivityKindSchema,
   /** Local wall-clock time at the day's city, 'HH:MM' */
-  startTime?: string
-}
+  startTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Use HH:MM').optional()
+})
+export type Activity = z.infer<typeof ActivitySchema>
+
+export const NewActivitySchema = ActivitySchema.omit({ id: true })
 
 export type Day = {
   id: string
