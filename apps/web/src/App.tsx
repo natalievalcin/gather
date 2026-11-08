@@ -1,46 +1,23 @@
-import { useState } from 'react'
+import { useReducer, useState } from 'react'
 import { orlandoTrip } from './data/orlando'
 import { DaySection } from './components/DaySection'
-import type { Activity, Day } from '@gather/shared'
+import type { Activity } from '@gather/shared'
+import { tripReducer } from './tripReducer'
 
 function App() {
-  const [trip, setTrip] = useState(orlandoTrip)
+  const [trip, dispatch] = useReducer(tripReducer, orlandoTrip)
   const [editingActivityId, setEditingActivityId] = useState<string | null>(null)
 
   function addActivity(dayId: string, activity: Activity) {
-    setTrip((prev) => ({
-      ...prev,
-      days: prev.days.map((day): Day =>
-        day.id === dayId ? { ...day, activities: [...day.activities, activity] } : day,
-      ),
-    }))
+    dispatch({ type: 'activityAdded', dayId, activity })
   }
 
   function deleteActivity(dayId: string, activityId: string) {
-    setTrip((prev) => ({
-      ...prev,
-      days: prev.days.map((day): Day =>
-        day.id === dayId
-          ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId) }
-          : day,
-      ),
-    }))
+    dispatch({ type: 'activityDeleted', dayId, activityId })
   }
 
   function updateActivity(dayId: string, updated: Activity) {
-    setTrip((prev) => ({
-      ...prev,
-      days: prev.days.map((day): Day =>
-        day.id === dayId
-          ? {
-              ...day,
-              activities: day.activities.map((activity) =>
-                activity.id === updated.id ? updated : activity,
-              ),
-            }
-          : day,
-      ),
-    }))
+    dispatch({ type: 'activityUpdated', dayId, activity: updated })
     stopEditing()
   }
 
