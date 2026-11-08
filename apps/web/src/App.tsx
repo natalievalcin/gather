@@ -5,6 +5,7 @@ import type { Activity, Day } from '@gather/shared'
 
 function App() {
   const [trip, setTrip] = useState(orlandoTrip)
+  const [editingActivityId, setEditingActivityId] = useState<string | null>(null)
 
   function addActivity(dayId: string, activity: Activity) {
     setTrip((prev) => ({
@@ -28,11 +29,27 @@ function App() {
     }))
   }
 
+  function startEditing(activityId: string) {
+    setEditingActivityId(activityId)
+  }
+
+  function stopEditing() {
+    setEditingActivityId(null)
+  }
+
   return (
     <main>
       <h1>{trip.name}</h1>
       {trip.days.map((day) => (
-        <DaySection key={day.id} day={day} onAddActivity={addActivity} onDeleteActivity={deleteActivity}/>
+        <DaySection
+          key={day.id}
+          day={day}
+          editingActivityId={editingActivityId}
+          onAddActivity={addActivity}
+          onDeleteActivity={deleteActivity}
+          onStartEditing={startEditing}
+          onStopEditing={stopEditing}
+        />
       ))}
     </main>
   )

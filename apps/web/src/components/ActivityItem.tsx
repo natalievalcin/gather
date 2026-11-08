@@ -1,20 +1,41 @@
 import type { Activity } from '@gather/shared'
+import { ActivityForm } from './ActivityForm'
 
 type ActivityItemProps = {
   activity: Activity
-  onDelete: (activityId: string) => void
+  isEditing: boolean
+  onEdit: () => void
+  onCancel: () => void
+  onDelete: () => void
 }
 
-export function ActivityItem({ activity, onDelete }: ActivityItemProps) {
+export function ActivityItem({ activity, isEditing, onEdit, onCancel, onDelete }: ActivityItemProps) {
   return (
     <li>
-      {activity.startTime && <time>{activity.startTime} · </time>}
-      {activity.title}
-      <button
-        type='button'
-        aria-label={`Delete ${activity.title}`}
-        onClick={() => onDelete(activity.id)}
-      >Delete</button>
+      {isEditing ? (
+        <ActivityForm
+          initialValues={activity}
+          submitLabel='Save'
+          onSubmit={onCancel}
+          onCancel={onCancel}
+        />
+      ) : (
+        <>
+          {activity.startTime && <time>{activity.startTime} · </time>}
+          {activity.title}
+          <button
+            type='button'
+            aria-label={`Edit ${activity.title}`}
+            onClick={onEdit}
+          >Edit</button>
+          <button
+            type='button'
+            aria-label={`Delete ${activity.title}`}
+            onClick={onDelete}
+          >Delete</button>
+        </>
+      )}
+
     </li>
   )
 }
