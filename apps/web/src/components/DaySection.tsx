@@ -17,7 +17,7 @@ export function DaySection({ day, onAddActivity, onDeleteActivity }: DaySectionP
           <ActivityItem key={activity.id} activity={activity} onDelete={() => onDeleteActivity(day.id, activity.id)}/>
         ))}
       </ul>
-      <AddActivityForm onAdd={(activity) => onAddActivity(day.id, activity)} />
+      <AddActivityForm onSubmit={(values) => onAddActivity(day.id, { id: crypto.randomUUID(), ...values })} />
     </section>
   )
 }

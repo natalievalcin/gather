@@ -1,8 +1,8 @@
-import { type ActivityKind, ActivityKindSchema, NewActivitySchema, type Activity } from '@gather/shared'
+import { type ActivityKind, ActivityKindSchema, NewActivitySchema, type NewActivity } from '@gather/shared'
 import { useId, useState, type ChangeEvent, type SubmitEvent } from 'react'
 
 type AddActivityFormProps = {
-  onAdd: (activity: Activity) => void
+  onSubmit: (values: NewActivity) => void
 }
 
 const DEFAULT_KIND: ActivityKind = 'sight'
@@ -19,7 +19,7 @@ type FormErrors = {
   startTime?: string
 }
 
-export function AddActivityForm({ onAdd }: AddActivityFormProps) {
+export function AddActivityForm({ onSubmit }: AddActivityFormProps) {
   const titleId = useId()
   const kindId = useId()
   const timeId = useId()
@@ -62,7 +62,7 @@ export function AddActivityForm({ onAdd }: AddActivityFormProps) {
       setErrors(nextErrors)
       return
     }
-    onAdd({ id: crypto.randomUUID(), ...result.data })
+    onSubmit(result.data)
 
     setTitle('')
     setKind(DEFAULT_KIND)

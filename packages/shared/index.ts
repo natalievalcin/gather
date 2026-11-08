@@ -18,6 +18,7 @@ export const ActivitySchema = z.object({
 export type Activity = z.infer<typeof ActivitySchema>
 
 export const NewActivitySchema = ActivitySchema.omit({ id: true })
+export type NewActivity = z.infer<typeof NewActivitySchema>
 
 export type Day = {
   id: string
