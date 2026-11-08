@@ -1,6 +1,6 @@
 import type { Activity, Day } from '@gather/shared'
 import { ActivityItem } from './ActivityItem'
-import { AddActivityForm } from './AddActivityForm'
+import { ActivityForm } from './ActivityForm'
 
 type DaySectionProps = {
   day: Day
@@ -17,7 +17,7 @@ export function DaySection({ day, onAddActivity, onDeleteActivity }: DaySectionP
           <ActivityItem key={activity.id} activity={activity} onDelete={() => onDeleteActivity(day.id, activity.id)}/>
         ))}
       </ul>
-      <AddActivityForm onSubmit={(values) => onAddActivity(day.id, { id: crypto.randomUUID(), ...values })} />
+      <ActivityForm submitLabel='Add' onSubmit={(values) => onAddActivity(day.id, { id: crypto.randomUUID(), ...values })} />
     </section>
   )
 }

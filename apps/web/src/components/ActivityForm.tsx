@@ -1,8 +1,11 @@
 import { type ActivityKind, ActivityKindSchema, NewActivitySchema, type NewActivity } from '@gather/shared'
 import { useId, useState, type ChangeEvent, type SubmitEvent } from 'react'
 
-type AddActivityFormProps = {
+type ActivityFormProps = {
+  initialValues?: NewActivity
+  submitLabel: string
   onSubmit: (values: NewActivity) => void
+  onCancel?: () => void
 }
 
 const DEFAULT_KIND: ActivityKind = 'sight'
@@ -19,15 +22,15 @@ type FormErrors = {
   startTime?: string
 }
 
-export function AddActivityForm({ onSubmit }: AddActivityFormProps) {
+export function ActivityForm({ initialValues, submitLabel, onSubmit, onCancel }: ActivityFormProps) {
   const titleId = useId()
   const kindId = useId()
   const timeId = useId()
   const titleErrorId = useId()
   const timeErrorId = useId()
-  const [title, setTitle] = useState('')
-  const [kind, setKind] = useState<ActivityKind>(DEFAULT_KIND)
-  const [startTime, setStartTime] = useState('')
+  const [title, setTitle] = useState(initialValues?.title ?? '')
+  const [kind, setKind] = useState<ActivityKind>(initialValues?.kind ?? DEFAULT_KIND)
+  const [startTime, setStartTime] = useState(initialValues?.startTime ?? '')
   const [errors, setErrors] = useState<FormErrors>({})
 
   function handleTitleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -103,7 +106,13 @@ export function AddActivityForm({ onSubmit }: AddActivityFormProps) {
       {errors.startTime && <p id={timeErrorId}>{errors.startTime}</p>}
       <button
         type='submit'
-      >Add</button>
+      >{submitLabel}</button>
+      {onCancel && (
+        <button
+          type='button'
+          onClick={onCancel}
+        >Cancel</button>
+      )}
     </form>
   )
 }
