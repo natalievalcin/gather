@@ -18,15 +18,27 @@ function App() {
     }))
   }
 
-  function deleteActivity(dayId: string,activityId: string) {
+  function deleteActivity(dayId: string, activityId: string) {
     setTrip((prev) => ({
       ...prev,
       days: prev.days.map((day): Day =>
         day.id === dayId
-        ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId)}
-        : day
+          ? { ...day, activities: day.activities.filter((activity) => activity.id !== activityId)}
+          : day
       )
     }))
+  }
+
+  function updateActivity(dayId: string, updated: Activity) {
+    setTrip((prev) => ({
+      ...prev,
+      days: prev.days.map((day): Day =>
+        day.id === dayId
+          ? { ...day, activities: day.activities.map((activity) => activity.id === updated.id ? updated : activity) }
+          : day
+      )
+    }))
+    stopEditing()
   }
 
   function startEditing(activityId: string) {
@@ -47,6 +59,7 @@ function App() {
           editingActivityId={editingActivityId}
           onAddActivity={addActivity}
           onDeleteActivity={deleteActivity}
+          onUpdateActivity={updateActivity}
           onStartEditing={startEditing}
           onStopEditing={stopEditing}
         />

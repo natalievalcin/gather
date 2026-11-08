@@ -1,22 +1,23 @@
-import type { Activity } from '@gather/shared'
+import type { Activity, NewActivity } from '@gather/shared'
 import { ActivityForm } from './ActivityForm'
 
 type ActivityItemProps = {
   activity: Activity
   isEditing: boolean
   onEdit: () => void
+  onSave: (values: NewActivity) => void
   onCancel: () => void
   onDelete: () => void
 }
 
-export function ActivityItem({ activity, isEditing, onEdit, onCancel, onDelete }: ActivityItemProps) {
+export function ActivityItem({ activity, isEditing, onEdit, onSave, onCancel, onDelete }: ActivityItemProps) {
   return (
     <li>
       {isEditing ? (
         <ActivityForm
           initialValues={activity}
           submitLabel='Save'
-          onSubmit={onCancel}
+          onSubmit={onSave}
           onCancel={onCancel}
         />
       ) : (
